@@ -1,0 +1,12 @@
+{
+    "hash": "85915a45afcfd99ca9ed5b91416a19d5",
+    "packages": [
+        {
+            "package": "symfony/class-loader",
+            "version": "dev-master",
+            "source-reference": "cd1550a4a6c0794b6b109af2db43fde6e18ee363",
+            "alias": "2.1.9999999.9999999-dev"
+        }
+    ],
+    "aliases": []
+}

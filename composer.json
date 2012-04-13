@@ -1,0 +1,7 @@
+{
+	"name": "Sirena relational",
+	"description": "A relational algebra",
+	"require": {
+		"symfony/class-loader": "2.1.*"
+	}
+}
