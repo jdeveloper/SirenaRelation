@@ -3,5 +3,8 @@
 	"description": "A relational algebra",
 	"require": {
 		"symfony/class-loader": "2.1.*"
-	}
+	},
+	"autoload": {
+        "psr-0": { "Sirena": "lib/" }
+    }
 }
