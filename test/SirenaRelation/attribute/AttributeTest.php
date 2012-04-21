@@ -89,7 +89,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 	public function alphanumericalChars() {
 		return array_map(function($ascii) {
 							return array(chr($ascii));
-						 }, $this->getAlphanumericalCharsASCII()));
+						 }, $this->getAlphanumericalCharsASCII());
 	}
 
 	private function getAlphanumericalCharsASCII() {
