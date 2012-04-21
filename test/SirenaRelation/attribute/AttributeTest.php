@@ -64,6 +64,13 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 		$attribute = new Attribute($value);
 	}
 
+	/**
+     * @dataProvider alphanumericalChars
+     */
+	public function testConstructorDoesAcceptStringsContainingNonAlphanumericalChars($value) {
+		$attribute = new Attribute($value);
+	}
+
 	public function testAttributeGetterReturnsValuePastToConstructorIfNotSetterCalled() {
 		$attribute = new Attribute("attributeName");
 
@@ -71,10 +78,26 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function nonAlphanumericalChars() {
-		return array(
-						array(','),
-						array('.')
-					);
+		$allASCIICodes = range(0, 255);
+		$nonAlphanumericalASCIICodes = array_diff($allASCIICodes, $this->getAlphanumericalCharsASCII());
+
+		return array_map(function($ascii) {
+							return array(chr($ascii));
+						 }, $nonAlphanumericalASCIICodes);
+	}
+
+	public function alphanumericalChars() {
+		return array_map(function($ascii) {
+							return array(chr($ascii));
+						 }, $this->getAlphanumericalCharsASCII()));
+	}
+
+	private function getAlphanumericalCharsASCII() {
+		return array_merge(
+							range(48, 57),
+							range(65, 90),
+							range(97, 122)
+						  );
 	}
 }
 ?>

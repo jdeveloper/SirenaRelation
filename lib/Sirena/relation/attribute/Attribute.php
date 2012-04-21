@@ -18,7 +18,7 @@ use \Exception;
   */
 class Attribute
 {
-	private static $ALFANUMERICAL_REGEX = "/^[a-zA-Z0-1]+$/";
+	private static $ALFANUMERICAL_REGEX = "/^[a-zA-Z0-9]+$/";
 
 	/**
 	  * Name of the attribute
