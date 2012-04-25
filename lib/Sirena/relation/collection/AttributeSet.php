@@ -55,6 +55,12 @@ class AttributeSet extends ArrayObject
 		}
 	}
 
+	private function assertKeyPresent($key) {
+		if( !isset($this[$key]) ) {
+			throw new Exception();
+		}
+	}
+
 	private function assertNameNotPresent($attribute) {
 		if( isset($this[$attribute->getName()]) ) {
 			throw new Exception();
@@ -87,6 +93,23 @@ class AttributeSet extends ArrayObject
 		}
 
 		return $keys;
+	}
+
+	/**
+	 * Returns the indexes of the attributes with the given nameså
+	 * @param  array $names
+	 * @return array
+	 */
+	public function indexesOfNames(array $names) {
+		$keys   = $this->getKeys();
+		$indxes = array();
+
+		foreach ($names as $index => $key) {
+			$this->assertKeyPresent($key);
+			$indxes[] = array_search($key,$keys);
+		}
+
+		return $indxes;
 	}
 
 	/**

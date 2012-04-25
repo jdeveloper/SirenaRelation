@@ -23,8 +23,7 @@ class ProjectedRelation extends BaseRelation
 	 * @param AttributeSet          $attributeSet  
 	 * @param DataProviderInterface $dataProvider  
 	 */
-	public function __construct(RelationInterface $innerRelation, AttributeSet $attributeSet, DataProviderInterface $dataProvider)
-	{
+	public function __construct(RelationInterface $innerRelation, AttributeSet $attributeSet, DataProviderInterface $dataProvider) {
 		parent::__construct($attributeSet, $dataProvider);
 		$this->innerRelation = $innerRelation;
 	}

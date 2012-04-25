@@ -103,6 +103,21 @@ class AttributeSetTest extends \PHPUnit_Framework_TestCase
 		$this->attributeSet->project(array('g'));
 	}
 
+	function testIndexesOfNames() {
+		$indexes = $this->attributeSet->indexesOfNames(array('a', 'c', 'e'));
+		$this->assertEquals(array(0,2,4), $indexes);
+
+		$indexes = $this->attributeSet->indexesOfNames(array('e', 'c', 'a'));
+		$this->assertEquals(array(4,2,0), $indexes);
+	}
+
+	/**
+	 * @expectedException Exception
+	 */
+	public function testIndexOfNamesThrowsExceptionIfNoAttributesHasAName() {
+		$indexes = $this->attributeSet->indexesOfNames(array('a', 'c', 'e', 'z'));
+	}
+
 	public function getProjectionsMap() {
 		return array(
 						array(array(),new AttributeSet(array())),
