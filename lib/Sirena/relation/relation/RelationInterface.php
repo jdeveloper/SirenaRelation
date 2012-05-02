@@ -15,4 +15,10 @@ interface RelationInterface extends IteratorAggregate
 	 * @return ProjectedRelation  A projected relation
 	 */
 	public function project(array $attributes);
+
+	/**
+	 * Returns the data provider
+	 * @return DataProviderInterface 
+	 */
+	public function getDataProvider();
 }

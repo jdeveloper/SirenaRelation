@@ -22,6 +22,10 @@ class MemoryDataProviderTest extends \PHPUnit_Framework_TestCase implements Data
 		return new ArrayObject($this->data);
 	}
 
+	public function getData() {
+		return $this->data;
+	}
+
 	public function setUp() {
 		$this->initialize();
 	}
@@ -55,6 +59,15 @@ class MemoryDataProviderTest extends \PHPUnit_Framework_TestCase implements Data
 
 	public function getProjections() {
 		$this->initialize();
+		$this->data = array();
+		$attributeSet = new AttributeSet(array(
+												new Attribute('attributeA'),
+												new Attribute('attributeB'),
+												new Attribute('attributeC'),
+												new Attribute('attributeD'),
+												new Attribute('attributeE'),
+											  ));
+		$this->relation = new BaseRelation($attributeSet, new MemoryDataProvider($this->data));
 
 		return array(
 			        	array($this->relation),

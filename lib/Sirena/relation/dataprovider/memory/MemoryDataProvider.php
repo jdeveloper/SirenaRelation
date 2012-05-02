@@ -8,6 +8,9 @@ use Sirena\relation\relation\ProjectedRelation;
 use Sirena\relation\dataprovider\DataProviderInterface;
 use Sirena\relation\dataprovider\memory\iterator\KeysIterator;
 use Sirena\relation\dataprovider\memory\iterator\ProjectedRelationIterator;
+use Sirena\relation\dataprovider\memory\extractor\BaseRelationExtractor;
+use Sirena\relation\dataprovider\memory\extractor\ProjectedRelationExtractor;
+
 use \Iterator;
 use EmptyIterator;
 use ArrayObject;
@@ -19,6 +22,7 @@ use ArrayObject;
 class MemoryDataProvider implements Countable, DataProviderInterface
 {
 	private $data;
+	private $extractors;
 
 	/**
 	 * constructor
@@ -27,6 +31,11 @@ class MemoryDataProvider implements Countable, DataProviderInterface
 	function __construct($data = array())
 	{
 		$this->data = $data;
+
+		$this->extractors = array(
+									new ProjectedRelationExtractor(),
+									new BaseRelationExtractor()
+								 );
 	}
 
 	/**
@@ -51,12 +60,10 @@ class MemoryDataProvider implements Countable, DataProviderInterface
 	 * @return Iterator
 	 */
 	public function read(RelationInterface $relation) {
-		if( count($this) === 0 ) {
-			return new EmptyIterator();
-		} else if ( $relation instanceof ProjectedRelation ) {
-			return new ProjectedRelationIterator($relation->getInnerRelation(), $relation->getAttributeSet()->getKeys());
-		} else {
-			return new ArrayObject($this->data);
+		foreach ($this->extractors as $extractor) {
+			if( $extractor->canHandle($relation) ) {
+				return $extractor->read($relation);
+			}
 		}
 	}
 }

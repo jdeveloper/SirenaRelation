@@ -26,6 +26,10 @@ class ProjectedRelationIteratorTest extends \PHPUnit_Framework_TestCase implemen
 		return 	$this->read($this->relation);
 	}
 
+	public function getDataProvider() {
+		return $this;
+	}
+
 	public function project(array $attributes) {
 		
 	}
