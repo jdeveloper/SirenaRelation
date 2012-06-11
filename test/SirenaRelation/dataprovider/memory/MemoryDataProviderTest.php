@@ -120,6 +120,40 @@ class MemoryDataProviderTest extends \PHPUnit_Framework_TestCase implements Data
 								array("4,1", '4,3', "4,5"),
 								array("5,1", '5,3', "5,5")
 						   );
+		
+		$values = $this->iteratorToArray($iterator);
+
+		$this->assertEquals($expectedData, $values);
+	}
+
+	public function testSkipOne() {
+		$seekedRelation = $this->relation->skip(1);
+		$iterator       = $this->dataProvider->read($seekedRelation);
+		$expectedData   = array(
+								array("2,1", "2,2", '2,3', "2,4", "2,5"),
+								array("3,1", "3,2", '3,3', "3,4", "3,5"),
+								array("4,1", "4,2", '4,3', "4,4", "4,5"),
+								array("5,1", "5,2", '5,3', "5,4", "5,5")
+						   );
+
+		$values = $this->iteratorToArray($iterator);
+
+		$this->assertEquals($expectedData, $values);
+	}
+
+	public function testSkipWithOffsetGreaterThanRowsReturnsEmptyIterator() {
+		$seekedRelation = $this->relation->skip(6);
+		$iterator       = $this->dataProvider->read($seekedRelation);
+		$this->assertTrue($iterator instanceof EmptyIterator);
+	}
+
+	public function testSkipWithOffsetEqualToRowsReturnsEmptyIterator() {
+		$seekedRelation = $this->relation->skip(5);
+		$iterator       = $this->dataProvider->read($seekedRelation);
+		$this->assertTrue($iterator instanceof EmptyIterator);
+	}
+
+	private function iteratorToArray($iterator) {
 		$values 	  = array();
 
 		foreach ($iterator as $value) {
@@ -132,6 +166,6 @@ class MemoryDataProviderTest extends \PHPUnit_Framework_TestCase implements Data
 			$values[] = $row;
 		}
 
-		$this->assertEquals($expectedData, $values);
+		return $values;
 	}
 }

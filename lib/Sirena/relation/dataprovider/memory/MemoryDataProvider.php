@@ -10,6 +10,7 @@ use Sirena\relation\dataprovider\memory\iterator\KeysIterator;
 use Sirena\relation\dataprovider\memory\iterator\ProjectedRelationIterator;
 use Sirena\relation\dataprovider\memory\extractor\BaseRelationExtractor;
 use Sirena\relation\dataprovider\memory\extractor\ProjectedRelationExtractor;
+use Sirena\relation\dataprovider\memory\extractor\SkipedRelationExtractor;
 
 use \Iterator;
 use EmptyIterator;
@@ -33,6 +34,7 @@ class MemoryDataProvider implements Countable, DataProviderInterface
 		$this->data = $data;
 
 		$this->extractors = array(
+									new SkipedRelationExtractor(),
 									new ProjectedRelationExtractor(),
 									new BaseRelationExtractor()
 								 );

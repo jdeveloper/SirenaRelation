@@ -1,14 +1,14 @@
 <?php
 
 use Sirena\relation\dataprovider\DataProviderInterface;
-use Sirena\relation\dataprovider\memory\iterator\ProjectedRelationIterator;
+use Sirena\relation\dataprovider\memory\iterator\SkipedRelationIterator;
 use Sirena\relation\relation\BaseRelation;
 use Sirena\relation\relation\RelationInterface;
 use Sirena\relation\attribute\Attribute;
 use Sirena\relation\collection\AttributeSet;
 use \ArrayObject;
 
-class ProjectedRelationIteratorTest extends \PHPUnit_Framework_TestCase implements RelationInterface, DataProviderInterface
+class ScripedRelationIteratorTest extends \PHPUnit_Framework_TestCase implements RelationInterface, DataProviderInterface
 {
 	private $relation;
 
@@ -50,16 +50,15 @@ class ProjectedRelationIteratorTest extends \PHPUnit_Framework_TestCase implemen
 		$this->relation = new BaseRelation($attributeSet, $this);
 	}
 
-	public function testShoulOnlyReturnTheKeysGiven() {
+	public function testShoulSkipTheFirstRow() {
 		$expectedData = array(
-								array("1,1", '1,3', "1,5"),
-								array("2,1", '2,3', "2,5"),
-								array("3,1", '3,3', "3,5"),
-								array("4,1", '4,3', "4,5"),
-								array("5,1", '5,3', "5,5")
-						   );
+								array("2,1", "2,2", '2,3', "2,4", "2,5"),
+								array("3,1", "3,2", '3,3', "3,4", "3,5"),
+								array("4,1", "4,2", '4,3', "4,4", "4,5"),
+								array("5,1", "5,2", '5,3', "5,4", "5,5")
+							  );
 		$values       = array();
-		$iterator     = new ProjectedRelationIterator($this->relation,array('A', 'C', 'E'));
+		$iterator     = new SkipedRelationIterator($this->relation->getIterator()->getIterator(),1);
 
 		foreach ($iterator as $value) {
 			$row = array();

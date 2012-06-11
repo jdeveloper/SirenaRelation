@@ -57,4 +57,13 @@ class BaseRelation implements RelationInterface
 	public function project(array $attributes) {
 		return new ProjectedRelation($this, $this->getAttributeSet()->project($attributes), $this->dataProvider);
 	}
+
+	/**
+	 * Skips records
+	 * @param  int records to skip
+	 * @return SkipedRelation  A skiped relation
+	 */
+	public function skip($offset) {
+		return new SkipedRelation($this, $offset, $this->dataProvider);
+	}
 }
