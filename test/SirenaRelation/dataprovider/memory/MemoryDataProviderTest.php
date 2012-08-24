@@ -146,9 +146,21 @@ class MemoryDataProviderTest extends \PHPUnit_Framework_TestCase implements Data
 		$iterator       = $this->dataProvider->read($seekedRelation);
 		$this->assertTrue($iterator instanceof EmptyIterator);
 	}
+	
+	public function testLimitOne() {
+		$seekedRelation = $this->relation->limit(1);
+		$iterator       = $this->dataProvider->read($seekedRelation);
+		$expectedData   = array(
+								array("1,1", "1,2", '1,3', "1,4", "1,5")
+						   );
 
-	public function testSkipWithOffsetEqualToRowsReturnsEmptyIterator() {
-		$seekedRelation = $this->relation->skip(5);
+		$values = $this->iteratorToArray($iterator);
+
+		$this->assertEquals($expectedData, $values);
+	}
+
+	public function testLimitZeroToRowsReturnsEmptyIterator() {
+		$seekedRelation = $this->relation->limit(0);
 		$iterator       = $this->dataProvider->read($seekedRelation);
 		$this->assertTrue($iterator instanceof EmptyIterator);
 	}

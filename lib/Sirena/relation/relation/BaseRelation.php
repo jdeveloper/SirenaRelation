@@ -66,4 +66,14 @@ class BaseRelation implements RelationInterface
 	public function skip($offset) {
 		return new SkipedRelation($this, $offset, $this->dataProvider);
 	}
+	
+	
+	/**
+	 * Limit records
+	 * @param  int records to limit
+	 * @return SkipedRelation  A skiped relation
+	 */
+	public function limit($limit) {
+		return new LimitedRelation($this, $limit, $this->dataProvider);
+	}
 }
