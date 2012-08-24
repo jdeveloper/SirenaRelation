@@ -1,5 +1,6 @@
 <?php
 use Sirena\relation\attribute\Attribute;
+use \Exception;
 
 class AttributeTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,58 +11,79 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
 		$this->attribute = new Attribute("attributeName");
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
 	public function testAttributeConstructorMustHaveParameterOfTheName() {
-		$attribute = new Attribute();
+		try {
+			$attribute = new Attribute();
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
-	public function testNameOfTheAttributeCantBeAnEmptyString()
-	{
-		$attribute = new Attribute('');
+	public function testNameOfTheAttributeCantBeAnEmptyString(){
+		try {
+			$attribute = new Attribute('');
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
-	public function testNameOfTheAttributeCantBeOnlySpaces()
-	{
-		$attribute = new Attribute('   ');
+	public function testNameOfTheAttributeCantBeOnlySpaces() {
+		try {
+			$attribute = new Attribute('   ');
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
 	public function testParameterPassedToSetNameCantBeNULL() {
-		$this->attribute->setName();
+		try {
+			$this->attribute->setName();
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
 	public function testParameterPassedToSetNameCantBeAnEmptyString()
 	{
-		$$this->attribute->setName('');
+		try {
+			$this->attribute->setName('');
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
 	public function testParameterPassedToSetNameCantBeBeOnlySpaces()
 	{
-		$this->attribute->setName('    ');
+		try {
+			$this->attribute->setName('    ');
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
 	/**
      * @dataProvider nonAlphanumericalChars
-     * @expectedException Exception
      */
 	public function testConstructorDoesNotAcceptStringsContainingNonAlphanumericalChars($value) {
-		$attribute = new Attribute($value);
+		try {
+			$attribute = new Attribute($value);
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
 	/**

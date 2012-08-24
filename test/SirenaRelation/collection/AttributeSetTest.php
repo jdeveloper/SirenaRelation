@@ -3,6 +3,7 @@
 use Sirena\relation\collection\AttributeSet;
 use Sirena\relation\attribute\Attribute;
 
+
 class AttributeSetTest extends \PHPUnit_Framework_TestCase
 {
 	private $attributeSet;
@@ -23,11 +24,14 @@ class AttributeSetTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(0,count($attributeSet));
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
 	public function testConstructorEnsureArrayOfAttributes() {
-		new AttributeSet(array(new Attribute('a'),new stdClass));
+		try {
+			new AttributeSet(array(new Attribute('a'),new stdClass));
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
 	public function testCount($value='') {
@@ -96,11 +100,14 @@ class AttributeSetTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($result,$this->attributeSet->project($projections));
 	}
 
-	/**
-	  * @expectedException Exception
-	  */
 	public function testThrowExceptionInProjectionIfOneAttributeNameNotPresent($value='') {
-		$this->attributeSet->project(array('g'));
+		try {
+			$this->attributeSet->project(array('g'));
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
 	function testIndexesOfNames() {
@@ -111,11 +118,14 @@ class AttributeSetTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(array(4,2,0), $indexes);
 	}
 
-	/**
-	 * @expectedException Exception
-	 */
 	public function testIndexOfNamesThrowsExceptionIfNoAttributesHasAName() {
-		$indexes = $this->attributeSet->indexesOfNames(array('a', 'c', 'e', 'z'));
+		try {
+			$indexes = $this->attributeSet->indexesOfNames(array('a', 'c', 'e', 'z'));
+		} catch (Exception $e) {
+			return;
+		}
+		
+		$this->fail();
 	}
 
 	public function getProjectionsMap() {
